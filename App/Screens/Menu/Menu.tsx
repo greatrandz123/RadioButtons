@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   SectionList,
 } from 'react-native'
+import styles from './Styles'
 import { Menu } from '../../Models'
 
 type Props = {
@@ -16,7 +17,7 @@ type Props = {
 const MenuView = (props: Props) => {
 
     const ListSectionHeaderComponent = ({ section: { title } }) => (
-      <View style={{ flex: 1, backgroundColor: 'yellow', padding: 10, }}>
+      <View style={styles.sections}>
           <Text>
               {/* {`${title.name}`} */}
           </Text>
@@ -24,14 +25,9 @@ const MenuView = (props: Props) => {
     )
 
     const drawingItem = ({ item }) => (
-      <TouchableOpacity onPress={() => { props.onRadioButton(item.id) }} style={{ flex: 1, flexDirection: 'row', padding: 10, }}>
-           <View style={{ borderRadius: 12, 
-                      height: 20, 
-                      width: 20, 
-                      left: 5, borderWidth: 1,
-                      borderColor: 'black', 
-                      backgroundColor: (props.selectedRadioButton === item.id) ? 'orange' : '#EBECF150' }} />
-          <Text style={{ paddingLeft: 15, }}>
+      <TouchableOpacity onPress={() => { props.onRadioButton(item.id) }} style={styles.radioButton}>
+          <View style={[styles.radioCircle, { backgroundColor: (props.selectedRadioButton === item.id) ? 'orange' : '#EBECF150' }]} />
+          <Text style={styles.radioText}>
               {`${item.name}`}
           </Text>
       </TouchableOpacity>
@@ -42,7 +38,7 @@ const MenuView = (props: Props) => {
             sections={props.dataSource}
             renderSectionHeader={ListSectionHeaderComponent}
             renderItem={drawingItem}
-            ListFooterComponent={(<View style={{ height: 50, }}/>)}
+            ListFooterComponent={(<View style={styles.footer}/>)}
             keyExtractor={(item, index) => `flatlist-categories-${index}`}
             showsVerticalScrollIndicator={false}
             stickySectionHeadersEnabled={false}
